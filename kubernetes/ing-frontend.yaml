@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: goapp
+spec:
+  rules:
+  - host: goapp.<LB_IPADDR>.sslip.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: goapp
+            port:
+              number: 8080
+        path: /api
+        pathType: Prefix
+      - backend:
+          service:
+            name: frontend
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
